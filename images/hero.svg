@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f6ede4"/>
+      <stop offset="100%" stop-color="#ded0c1"/>
+    </linearGradient>
+    <linearGradient id="light" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff9f2" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#f9e8df" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="840" cy="180" r="120" fill="#fff2e8" opacity="0.8"/>
+  <path d="M240 620c120-180 320-220 520-120c200 100 240 330 240 330H220s20-140 20-210z" fill="#e9d2c4"/>
+  <path d="M830 470c-40-90-160-140-270-100c-110 38-170 160-140 240c30 80 120 120 230 115s220-90 220-155c0-40-10-60-40-100z" fill="#fff" opacity="0.9"/>
+  <path d="M530 460c0-45 38-82 85-82s85 37 85 82v180H530V460z" fill="#d6a685"/>
+  <rect x="595" y="320" width="20" height="90" rx="10" fill="#f3e2d8"/>
+  <rect x="530" y="555" width="210" height="32" rx="16" fill="#a87b5f"/>
+  <path d="M390 500c0-30 24-55 54-55h60c29 0 54 25 54 55v75H390V500z" fill="#d7b39d"/>
+  <rect x="410" y="425" width="25" height="100" rx="12" fill="#f6e6da"/>
+  <circle cx="470" cy="380" r="22" fill="#f0d3ca"/>
+  <path d="M320 680L1000 240" stroke="#fff9f0" stroke-width="140" stroke-linecap="round" opacity="0.18"/>
+  <path d="M320 740L980 300" stroke="#fff9f0" stroke-width="100" stroke-linecap="round" opacity="0.16"/>
+  <rect x="420" y="220" width="360" height="160" rx="40" fill="url(#light)"/>
+  <text x="110" y="110" fill="#7c5d47" font-family="Poppins, sans-serif" font-size="52" font-weight="700">CraftNest NZ</text>
+</svg>
