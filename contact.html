@@ -33,7 +33,7 @@
         <h2>We’re here to help you create the perfect gift</h2>
         <p>Whether you need a curated hamper, personalised keepsake, or help with a custom order, our team is ready to assist.</p>
         <div class="hero-actions">
-          <a href="mailto:foreverfoldcreations@gmail.com" class="button">Email foreverfoldcreations@gmail.com</a>
+          <a href="#contact-form" class="button">Use the contact form</a>
           <a href="tel:+6493004000" class="button button-secondary">Call Us</a>
         </div>
       </div>
@@ -48,20 +48,23 @@
           <p><strong>Location:</strong> Auckland, New Zealand</p>
           <p>We respond to enquiries within one business day. Custom orders and corporate gifting requests are always welcome.</p>
         </div>
-        <div class="contact-card">
+        <div class="contact-card" id="contact-form">
           <h2>Send a Message</h2>
-          <form class="form-grid">
+          <form class="form-grid" action="https://formsubmit.co/foreverfoldcreations@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New contact form submission from Forever Fold Creations">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_honeypot" value="bot-field">
             <label>
               Name
-              <input type="text" name="name" placeholder="Your name">
+              <input type="text" name="name" placeholder="Your name" required>
             </label>
             <label>
               Email
-              <input type="email" name="email" placeholder="you@example.com">
+              <input type="email" name="email" placeholder="you@example.com" required>
             </label>
             <label class="full-width">
               Message
-              <textarea name="message" rows="6" placeholder="Tell us about your gift idea..."></textarea>
+              <textarea name="message" rows="6" placeholder="Tell us about your gift idea..." required></textarea>
             </label>
             <button type="submit">Send Message</button>
           </form>
@@ -71,7 +74,7 @@
   </main>
 
   <footer>
-    <p>© 2026 Forever Fold Creations — Handcrafted gifts for every special moment. <a href="mailto:foreverfoldcreations@gmail.com" target="_blank" rel="noopener" class="footer-email-link" style="color:#f1d8a3 !important; text-decoration:none;"><span class="footer-email-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v10.5A2.75 2.75 0 0 1 18.25 20H5.75A2.75 2.75 0 0 1 3 17.25V6.75Zm1.5.5v10h15v-10h-15Zm1.78.94 5.72 4.40 5.72-4.40H5.28Z"/></svg></span>foreverfoldcreations@gmail.com</a></p>
+    <p>© 2026 Forever Fold Creations — Handcrafted gifts for every special moment. <a href="#contact-form" class="footer-email-link" style="color:#f1d8a3 !important; text-decoration:none;"><span class="footer-email-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v10.5A2.75 2.75 0 0 1 18.25 20H5.75A2.75 2.75 0 0 1 3 17.25V6.75Zm1.5.5v10h15v-10h-15Zm1.78.94 5.72 4.4 5.72-4.4H5.28Z"/></svg></span>Contact us</a></p>
   </footer>
 
   <script src="js/script.js"></script>
