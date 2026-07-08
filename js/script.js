@@ -1,126 +1,105 @@
-const carousel = document.getElementById('hamperCarousel');
-const prevButton = document.querySelector('.carousel-nav.prev');
-const nextButton = document.querySelector('.carousel-nav.next');
+const products = document.querySelectorAll('.product');
+const lightbox = document.getElementById('imageLightbox');
+const lightboxImage = document.querySelector('.lightbox-image');
+const lightboxClose = document.querySelector('.lightbox-close');
+const lightboxPrev = document.querySelector('.lightbox-nav.prev');
+const lightboxNext = document.querySelector('.lightbox-nav.next');
 
-function getCarouselStep() {
-  const firstItem = carousel?.querySelector('.carousel-item');
-  if (!firstItem) return 300;
-  return firstItem.getBoundingClientRect().width + 18;
-}
+let activeImages = [];
+let activeIndex = 0;
 
-if (carousel && prevButton && nextButton) {
-  prevButton.addEventListener('click', () => {
-    carousel.scrollBy({ left: -getCarouselStep(), behavior: 'smooth' });
+const syncLightboxNavState = () => {
+  const hasImages = activeImages.length > 0;
+  if (lightboxPrev) {
+    lightboxPrev.disabled = !hasImages || activeIndex <= 0;
+  }
+  if (lightboxNext) {
+    lightboxNext.disabled = !hasImages || activeIndex >= activeImages.length - 1;
+  }
+};
+
+const updateLightboxImage = (index) => {
+  if (!lightboxImage || activeImages.length === 0) return;
+  activeIndex = Math.max(0, Math.min(index, activeImages.length - 1));
+  lightboxImage.src = activeImages[activeIndex];
+  syncLightboxNavState();
+};
+
+const openLightbox = (images, index = 0) => {
+  if (!lightbox || !lightboxImage) return;
+  activeImages = images;
+  updateLightboxImage(index);
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+};
+
+const closeLightbox = () => {
+  if (!lightbox) return;
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  activeImages = [];
+  activeIndex = 0;
+  syncLightboxNavState();
+};
+
+products.forEach((product) => {
+  const mainWrapper = product.querySelector('.product-main-wrapper');
+  const mainImage = product.querySelector('.product-main');
+  let images = [];
+
+  try {
+    images = JSON.parse(product.dataset.images || '[]');
+  } catch {
+    images = [];
+  }
+
+  if (images.length === 0 && mainImage) {
+    images = [mainImage.getAttribute('src') || mainImage.src];
+  }
+
+  if (!mainImage || images.length === 0) return;
+
+  const indexFromSrc = (src) => {
+    const byRaw = images.indexOf(src);
+    if (byRaw >= 0) return byRaw;
+    const bySuffix = images.findIndex((item) => src.endsWith(item));
+    return bySuffix >= 0 ? bySuffix : 0;
+  };
+
+  mainImage.addEventListener('click', () => {
+    openLightbox(images, indexFromSrc(mainImage.getAttribute('src') || mainImage.src));
   });
 
-  nextButton.addEventListener('click', () => {
-    const carousel = document.getElementById('hamperCarousel');
-    const prevButton = document.querySelector('.carousel-nav.prev');
-    const nextButton = document.querySelector('.carousel-nav.next');
+  if (mainWrapper && images.length > 1) {
+    const cueButton = document.createElement('button');
+    cueButton.type = 'button';
+    cueButton.className = 'main-gallery-cue';
+    cueButton.setAttribute('aria-label', 'View more gallery images');
+    cueButton.textContent = '›';
 
-    function getCarouselStep() {
-      const firstItem = carousel?.querySelector('.carousel-item');
-      if (!firstItem) return 300;
-      return firstItem.getBoundingClientRect().width + 18;
-    }
-
-    if (carousel && prevButton && nextButton) {
-      prevButton.addEventListener('click', () => {
-        carousel.scrollBy({ left: -getCarouselStep(), behavior: 'smooth' });
-      });
-
-      nextButton.addEventListener('click', () => {
-        carousel.scrollBy({ left: getCarouselStep(), behavior: 'smooth' });
-      });
-    }
-
-    const lightbox = document.getElementById('imageLightbox');
-    const lightboxImage = lightbox?.querySelector('.lightbox-image');
-    const lightboxClose = lightbox?.querySelector('.lightbox-close');
-    const previewThumbs = document.querySelectorAll('.preview-thumb');
-    const galleryRows = document.querySelectorAll('.gallery-row');
-
-    function getGalleryStep(gallery) {
-      const firstItem = gallery?.querySelector('figure');
-      if (!firstItem) return 160;
-      return firstItem.getBoundingClientRect().width + 12;
-    }
-
-    galleryRows.forEach((row) => {
-      const gallery = row.querySelector('.product-gallery');
-      const galleryPrev = row.querySelector('.gallery-nav.prev');
-      const galleryNext = row.querySelector('.gallery-nav.next');
-
-      if (!gallery || !galleryPrev || !galleryNext) return;
-
-      galleryPrev.addEventListener('click', () => {
-        gallery.scrollBy({ left: -getGalleryStep(gallery), behavior: 'smooth' });
-      });
-
-      galleryNext.addEventListener('click', () => {
-        gallery.scrollBy({ left: getGalleryStep(gallery), behavior: 'smooth' });
-      });
+    cueButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const currentIndex = indexFromSrc(mainImage.getAttribute('src') || mainImage.src);
+      openLightbox(images, Math.min(currentIndex + 1, images.length - 1));
     });
 
-    function openLightbox(src, alt) {
-      if (!lightbox || !lightboxImage) return;
-      lightboxImage.src = src;
-      lightboxImage.alt = alt;
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      if (!lightbox) return;
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      if (lightboxImage) {
-        lightboxImage.src = '';
-        lightboxImage.alt = '';
-      }
-      document.body.style.overflow = '';
-    }
-
-    const lightboxPrev = document.querySelector('.lightbox-nav.prev');
-    const lightboxNext = document.querySelector('.lightbox-nav.next');
-    const lightboxContent = document.getElementById('lightboxContent');
-
-    previewThumbs.forEach((thumb) => {
-      thumb.addEventListener('click', () => {
-        const fullSrc = thumb.getAttribute('data-full');
-        const alt = thumb.getAttribute('alt') || 'Hamper preview';
-        if (fullSrc) openLightbox(fullSrc, alt);
-      });
-    });
-
-    if (lightboxClose) {
-      lightboxClose.addEventListener('click', closeLightbox);
-    }
-
-    if (lightboxPrev && lightboxNext && lightboxContent) {
-      lightboxPrev.addEventListener('click', () => {
-        lightboxContent.scrollBy({ left: -240, behavior: 'smooth' });
-      });
-
-      lightboxNext.addEventListener('click', () => {
-        lightboxContent.scrollBy({ left: 240, behavior: 'smooth' });
-      });
-    }
-
-    lightbox?.addEventListener('click', (event) => {
-      if (event.target instanceof HTMLElement && event.target.dataset.close === 'true') {
-        closeLightbox();
-      }
-    });
-
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        closeLightbox();
-      }
-    });
-      currentIndex = (currentIndex + 1) % currentGallery.length;
-      if (lightboxImage) lightboxImage.src = currentGallery[currentIndex];
-    }
+    mainWrapper.appendChild(cueButton);
   }
 });
+
+lightboxClose?.addEventListener('click', closeLightbox);
+lightboxPrev?.addEventListener('click', () => updateLightboxImage(activeIndex - 1));
+lightboxNext?.addEventListener('click', () => updateLightboxImage(activeIndex + 1));
+lightbox?.addEventListener('click', (event) => {
+  if (event.target.classList.contains('image-lightbox') || event.target.dataset.close === 'true') {
+    closeLightbox();
+  }
+});
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeLightbox();
+  if (event.key === 'ArrowLeft' && lightbox?.classList.contains('open')) updateLightboxImage(activeIndex - 1);
+  if (event.key === 'ArrowRight' && lightbox?.classList.contains('open')) updateLightboxImage(activeIndex + 1);
+});
+
