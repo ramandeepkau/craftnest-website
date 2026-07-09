@@ -2,11 +2,16 @@ document.addEventListener('DOMContentLoaded', function () {
   var form = document.getElementById('contactForm');
   if (!form) return;
   var endpoint = form.getAttribute('action');
+  var submitBtn = form.querySelector('button[type="submit"]');
+  var statusEl = document.getElementById('formStatus');
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var submitBtn = form.querySelector('button[type="submit"]');
-    if (submitBtn) submitBtn.disabled = true;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+    }
+    showMessage('Sending your message...', 'success');
 
     var formData = new FormData(form);
 
@@ -32,33 +37,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }).catch(function () {
       showMessage('Network error — check your form endpoint.', 'error');
     }).finally(function () {
-      if (submitBtn) submitBtn.disabled = false;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      }
     });
   });
 
   function showMessage(text, type) {
-    var el = document.getElementById('formMessage');
-    if (!el) {
-      el = document.createElement('div');
-      el.id = 'formMessage';
-      el.style.position = 'fixed';
-      el.style.right = '20px';
-      el.style.bottom = '20px';
-      el.style.padding = '12px 16px';
-      el.style.borderRadius = '6px';
-      el.style.boxShadow = '0 6px 18px rgba(0,0,0,0.12)';
-      el.style.zIndex = 9999;
-      el.style.fontFamily = 'Poppins, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial';
-      el.style.fontSize = '0.95rem';
-      document.body.appendChild(el);
+    if (statusEl) {
+      statusEl.textContent = text;
+      statusEl.className = 'form-status is-visible ' + type;
     }
-    el.textContent = text;
+
     // Also announce to screen readers via an ARIA live region if present
     var live = document.getElementById('ariaLive');
     if (live) live.textContent = text;
-    el.style.background = type === 'success' ? '#e6ffef' : '#fff0f0';
-    el.style.color = type === 'success' ? '#056937' : '#7a0010';
-    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 5000);
+
+    if (statusEl && type === 'success') {
+      setTimeout(function () {
+        statusEl.className = 'form-status';
+        statusEl.textContent = '';
+      }, 5000);
+    }
   }
 
   // (copy button removed) 

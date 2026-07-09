@@ -163,6 +163,20 @@ section h2 {
   box-shadow: 0 18px 45px rgba(60, 38, 18, 0.08);
 }
 
+.collection-thumb {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 16px;
+  margin-bottom: 14px;
+}
+
+.categories .card {
+  display: flex;
+  flex-direction: column;
+}
+
 .brand-story {
   padding: 50px 60px 0;
 }
@@ -625,6 +639,48 @@ button.shop-thumb:hover {
   white-space: nowrap;
 }
 
+.how-it-works {
+  background: #fff7f6;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  max-width: 1060px;
+  margin: 26px auto 0;
+}
+
+.step-card {
+  background: #fff;
+  border: 1px solid rgba(217, 156, 139, 0.24);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 14px 36px rgba(60, 38, 18, 0.08);
+}
+
+.step-number {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.step-card h3 {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.step-card p {
+  color: var(--text-muted);
+}
+
 /* ── About page ─────────────────────────────────────── */
 .about-grid {
   grid-template-columns: 1fr 1fr;
@@ -699,8 +755,10 @@ button.shop-thumb:hover {
 }
 
 .contact-grid {
+  display: grid;
   grid-template-columns: minmax(280px, 0.95fr) minmax(380px, 1.15fr);
   align-items: start;
+  gap: 24px;
 }
 
 .contact-grid .contact-card {
@@ -709,6 +767,38 @@ button.shop-thumb:hover {
   border-radius: 28px;
   padding: 34px;
   box-shadow: 0 18px 45px rgba(60, 38, 18, 0.08);
+}
+
+.contact-details {
+  text-align: left;
+}
+
+.contact-lead {
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.contact-detail-list {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.contact-detail-list li {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(217, 156, 139, 0.18);
+  color: var(--text);
+}
+
+.contact-form-panel {
+  text-align: left;
+}
+
+.form-intro {
+  color: var(--text-muted);
+  margin-bottom: 10px;
 }
 
 .contact-grid .contact-card h2 {
@@ -751,6 +841,7 @@ button.shop-thumb:hover {
 }
 
 .form-grid input,
+.form-grid select,
 .form-grid textarea {
   width: 100%;
   border: 1px solid var(--border);
@@ -769,6 +860,7 @@ button.shop-thumb:hover {
 }
 
 .form-grid input:focus,
+.form-grid select:focus,
 .form-grid textarea:focus {
   outline: none;
   border-color: var(--accent-dark);
@@ -784,6 +876,31 @@ button.shop-thumb:hover {
   border-radius: 999px;
 }
 
+.form-status {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  display: none;
+}
+
+.form-status.is-visible {
+  display: block;
+}
+
+.form-status.success {
+  background: #e6ffef;
+  color: #056937;
+  border: 1px solid #a5ddbe;
+}
+
+.form-status.error {
+  background: #fff0f0;
+  color: #7a0010;
+  border: 1px solid #efb6bd;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -794,6 +911,35 @@ button.shop-thumb:hover {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.faq-section {
+  background: #fffaf8;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+  max-width: 1100px;
+  margin: 30px auto 0;
+}
+
+.faq-item {
+  background: #fff;
+  border: 1px solid rgba(217, 156, 139, 0.22);
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.faq-item h3 {
+  margin-bottom: 8px;
+  font-size: 1.03rem;
+  color: var(--text);
+}
+
+.faq-item p {
+  color: var(--text-muted);
 }
 
 .image-lightbox {
