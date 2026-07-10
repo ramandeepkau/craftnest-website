@@ -810,13 +810,48 @@ button.shop-thumb:hover {
   margin: 0 0 18px;
   padding: 0;
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .contact-detail-list li {
-  padding-bottom: 10px;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 8px 0 12px;
   border-bottom: 1px solid rgba(217, 156, 139, 0.18);
   color: var(--text);
+}
+
+.detail-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(217, 156, 139, 0.14);
+  border: 1px solid rgba(217, 156, 139, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-icon svg {
+  width: 17px;
+  height: 17px;
+  fill: #8a5f52;
+}
+
+.detail-content {
+  line-height: 1.45;
+  font-size: 1.02rem;
+}
+
+.detail-content strong {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.detail-content a {
+  word-break: break-word;
 }
 
 .contact-form-panel {
