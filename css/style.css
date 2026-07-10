@@ -86,6 +86,10 @@ nav a:hover {
   color: #b57a64;
 }
 
+.nav-toggle {
+  display: none;
+}
+
 .hero {
   min-height: 78vh;
   background: linear-gradient(180deg, rgba(255, 244, 246, 0.92), rgba(255, 244, 246, 0.92)), url('images/hero.svg');
@@ -396,6 +400,29 @@ footer p {
 
 .contact-card {
   text-align: center;
+}
+
+.mobile-order-bar {
+  display: none;
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ── Testimonials ───────────────────────────────────── */
@@ -1144,23 +1171,206 @@ button.shop-thumb:hover {
 @media (max-width: 860px) {
   header {
     flex-direction: column;
-    gap: 16px;
-    padding: 18px 24px;
+    gap: 10px;
+    padding: 12px 14px;
+    background: rgba(255, 248, 247, 0.98);
+    backdrop-filter: blur(10px);
+  }
+
+  .logo {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .logo h1 {
+    font-size: 1.45rem;
+    line-height: 1.1;
+  }
+
+  .logo p {
+    font-size: 0.78rem;
+    text-align: center;
+    line-height: 1.35;
   }
 
   nav ul {
-    flex-wrap: wrap;
+    width: 100%;
+    flex-direction: column;
+    gap: 6px;
+    padding: 4px;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    gap: 14px;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid rgba(217, 156, 139, 0.38);
+    background: #fff;
+    color: var(--text);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-left: auto;
+    margin-top: 2px;
+    padding: 0;
+  }
+
+  .site-nav {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease;
+  }
+
+  .site-nav.is-open {
+    max-height: 260px;
+    margin-top: 4px;
+  }
+
+  .site-nav ul {
+    width: 100%;
+  }
+
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(217, 156, 139, 0.26);
+    background: #fff;
+    font-size: 0.94rem;
+    white-space: nowrap;
+  }
+
+  .hero {
+    min-height: 68vh;
+    padding: 14px;
+  }
+
+  .overlay {
+    padding: 34px 22px;
+    border-radius: 20px;
+  }
+
+  .overlay h2 {
+    font-size: clamp(2.1rem, 9vw, 3rem);
+    margin-bottom: 14px;
+  }
+
+  .overlay p {
+    margin-bottom: 20px;
+    font-size: 0.97rem;
+  }
+
+  .hero-actions {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-actions .button {
+    flex: 1;
+    min-width: 140px;
+    padding: 13px 16px;
+    font-size: 0.92rem;
   }
 
   section {
-    padding: 70px 28px;
+    padding: 56px 18px;
+  }
+
+  section h2 {
+    font-size: 2.15rem;
+    margin-bottom: 12px;
+  }
+
+  .cards,
+  .products,
+  .why-grid,
+  .testimonials-grid,
+  .faq-grid,
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card,
+  .product,
+  .why-grid > div,
+  .testimonial-card,
+  .faq-item,
+  .step-card {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .collection-thumb {
+    aspect-ratio: 4 / 3;
   }
 
   .brand-mark {
-    width: 112px;
-    height: 112px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .brand-story {
+    padding: 30px 18px 0;
+  }
+
+  .brand-story-inner {
+    padding: 22px 18px;
+  }
+
+  .shop-category {
+    padding: 36px 14px 10px;
+  }
+
+  .mobile-order-bar {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 14px;
+    background: rgba(255, 248, 247, 0.97);
+    border: 1px solid rgba(217, 156, 139, 0.35);
+    box-shadow: 0 14px 30px rgba(60, 38, 18, 0.17);
+    z-index: 20;
+    backdrop-filter: blur(8px);
+  }
+
+  .mobile-order-bar .button {
+    width: 100%;
+    padding: 11px 10px;
+    font-size: 0.88rem;
+  }
+
+  .shop-page footer {
+    padding-bottom: 96px;
+  }
+
+  .shop-card-info h3 {
+    font-size: 1rem;
+  }
+
+  .shop-card-info p {
+    font-size: 0.9rem;
+  }
+
+  .shop-card-footer .button {
+    padding: 10px 16px;
+    font-size: 0.86rem;
+  }
+
+  .shop-card-footer .price {
+    font-size: 1.05rem;
   }
 
   .contact-grid {
@@ -1188,4 +1398,27 @@ button.shop-thumb:hover {
     right: calc(100% + 6px);
   }
 
+}
+
+@media (max-width: 560px) {
+  .shop-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions .button,
+  .form-grid button[type='submit'] {
+    width: 100%;
+  }
+
+  .contact-grid .contact-card {
+    padding: 20px;
+  }
+
+  .lightbox-arrow {
+    display: none;
+  }
+
+  .mobile-order-bar {
+    grid-template-columns: 1fr;
+  }
 }

@@ -321,3 +321,60 @@ window.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft' && lightbox?.classList.contains('open')) updateLightboxImage(activeIndex - 1);
   if (event.key === 'ArrowRight' && lightbox?.classList.contains('open')) updateLightboxImage(activeIndex + 1);
 });
+
+/* ── Mobile nav toggle ──────────────────────────────── */
+const navToggle = document.querySelector('.nav-toggle');
+const siteNav = document.querySelector('.site-nav');
+
+const closeMobileMenu = () => {
+  if (!siteNav || !navToggle) return;
+  siteNav.classList.remove('is-open');
+  navToggle.setAttribute('aria-expanded', 'false');
+  navToggle.textContent = '☰';
+};
+
+if (navToggle && siteNav) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = siteNav.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    navToggle.textContent = isOpen ? '✕' : '☰';
+  });
+
+  siteNav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860) closeMobileMenu();
+  });
+}
+
+/* ── Subtle scroll reveal ───────────────────────────── */
+const revealTargets = document.querySelectorAll(
+  'section, .card, .product, .shop-card, .step-card, .testimonial-card, .faq-item, .why-grid > div'
+);
+
+if (revealTargets.length > 0) {
+  revealTargets.forEach((el) => el.classList.add('reveal-on-scroll'));
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -6% 0px',
+      }
+    );
+
+    revealTargets.forEach((el) => observer.observe(el));
+  } else {
+    revealTargets.forEach((el) => el.classList.add('is-visible'));
+  }
+}

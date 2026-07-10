@@ -19,7 +19,8 @@
         <p>Luxury hampers, soy candles &amp; personalised gifts</p>
       </div>
     </div>
-    <nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu">☰</button>
+    <nav id="siteNav" class="site-nav">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="products.html">Shop</a></li>
@@ -155,7 +156,7 @@
             <h3>Classic Candle Bouquet</h3>
             <p>A timeless soy wax bloom arrangement, hand-wrapped in premium paper with a ribbon finish.</p>
             <div class="shop-card-footer">
-              <span class="price">From $65</span>
+              <span class="price">From $50</span>
               <a class="button" href="contact.html#contact-form">Order Now</a>
             </div>
           </div>
@@ -198,7 +199,7 @@
             <h3>Mini Candle Bouquet</h3>
             <p>A full, lush arrangement in a signature style — the ultimate floral candle gift.</p>
             <div class="shop-card-footer">
-              <span class="price">From $95</span>
+              <span class="price">From $20</span>
               <a class="button" href="contact.html#contact-form">Order Now</a>
             </div>
           </div>
@@ -208,6 +209,11 @@
     </section>
 
   </main>
+
+  <div class="mobile-order-bar" aria-label="Quick order actions">
+    <a href="contact.html#contact-form" class="button">Order Now</a>
+    <a href="mailto:foreverfoldcreations@gmail.com?subject=Order%20Enquiry%20-%20Forever%20Fold%20Creations" class="button button-secondary">Email</a>
+  </div>
 
   <div class="image-lightbox" id="imageLightbox" aria-hidden="true">
     <div class="lightbox-backdrop" data-close="true"></div>
